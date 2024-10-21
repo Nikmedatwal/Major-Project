@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        /* General styling */
+        * {
+            margin: 0;
+            padding: 0;
+            background-image: url('profile.jpg'); /* Set background image */
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Profile container */
+        .profile-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #ced8df;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-picture {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid #56728f;
+            margin-bottom: 10px;
+        }
+
+        .user-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4d4369;
+        }
+
+        .user-role {
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* Profile Information */
+        .profile-info h2 {
+            margin-bottom: 15px;
+            font-size: 22px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+
+        .profile-info ul {
+            list-style: none;
+        }
+
+        .profile-info li {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        /* Profile Footer */
+        .profile-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .edit-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .edit-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Modal for editing */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+        }
+
+        .modal-content h2 {
+            margin-bottom: 15px;
+        }
+
+        .modal-content label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .modal-content input, .modal-content textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .modal-content button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <img src="profile-picture.jpg" alt="User Profile Picture" class="profile-picture">
+            <h1 id="userName" class="user-name">John Doe</h1>
+            <p id="userRole" class="user-role">Software Engineer</p>
+        </div>
+
+        <div class="profile-info">
+            <h2>Profile Information</h2>
+            <ul>
+                <li><strong>Email:</strong> <span id="userEmail">john.doe@example.com</span></li>
+                <li><strong>Phone:</strong> <span id="userPhone">+1234567890</span></li>
+                <li><strong>Location:</strong> <span id="userLocation">San Francisco, CA</span></li>
+                <li><strong>Skills:</strong> <span id="userSkills">Java, Python, JavaScript, React</span></li>
+                <li><strong>Experience:</strong> <span id="userExperience">5 years in software development</span></li>
+                <li><strong>About Me:</strong> <span id="userAbout">Passionate developer with experience in building scalable web applications.</span></li>
+            </ul>
+        </div>
+
+        <div class="profile-footer">
+            <button class="edit-button" onclick="editProfile()">Edit Profile</button>
+        </div>
+
+        <!-- Modal for editing -->
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <h2>Edit Profile Information</h2>
+                <label for="editName">Name:</label>
+                <input type="text" id="editName" value="John Doe"><br>
+
+                <label for="editRole">Role:</label>
+                <input type="text" id="editRole" value="Software Engineer"><br>
+
+                <label for="editEmail">Email:</label>
+                <input type="email" id="editEmail" value="john.doe@example.com"><br>
+
+                <label for="editPhone">Phone:</label>
+                <input type="text" id="editPhone" value="+1234567890"><br>
+
+                <label for="editLocation">Location:</label>
+                <input type="text" id="editLocation" value="San Francisco, CA"><br>
+
+                <label for="editSkills">Skills:</label>
+                <input type="text" id="editSkills" value="Java, Python, JavaScript, React"><br>
+
+                <label for="editExperience">Experience:</label>
+                <input type="text" id="editExperience" value="5 years in software development"><br>
+
+                <label for="editAbout">About Me:</label>
+                <textarea id="editAbout">Passionate developer with experience in building scalable web applications.</textarea><br>
+
+                <button onclick="saveProfile()">Save</button>
+                <button onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to open the modal and allow editing
+        function editProfile() {
+            document.getElementById("editModal").style.display = "flex";
+        }
+
+        // Function to save the edited information
+        function saveProfile() {
+            // Get input values from the modal
+            const name = document.getElementById("editName").value;
+            const role = document.getElementById("editRole").value;
+            const email = document.getElementById("editEmail").value;
+            const phone = document.getElementById("editPhone").value;
+            const location = document.getElementById("editLocation").value;
+            const skills = document.getElementById("editSkills").value;
+            const experience = document.getElementById("editExperience").value;
+            const about = document.getElementById("editAbout").value;
+
+            // Update the profile display with new values
+            document.getElementById("userName").innerText = name;
+            document.getElementById("userRole").innerText = role;
+            document.getElementById("userEmail").innerText = email;
+            document.getElementById("userPhone").innerText = phone;
+            document.getElementById("userLocation").innerText = location;
+            document.getElementById("userSkills").innerText = skills;
+            document.getElementById("userExperience").innerText = experience;
+            document.getElementById("userAbout").innerText = about;
+
+            // Close the modal
+            closeModal();
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            document.getElementById("editModal").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>

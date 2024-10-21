@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* General styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('home.jpg'); /* Set background image */
+        }
+
+        /* Navbar styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px 20px;
+            color: white;
+        }
+
+        /* Hamburger menu styling */
+        .hamburger {
+            cursor: pointer;
+            font-size: 30px;
+        }
+
+        /* Search bar styling */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            margin: 0 10px;
+        }
+
+        .search-bar input[type="text"] {
+            width: 30%;
+            padding: 5px;
+            border: none;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .search-bar button {
+            padding: 5px 10px;
+            margin-left: 5px;
+            border: none;
+            background-color: #1c29d8;
+            color: white;
+            cursor: pointer;
+        }
+
+        .search-bar button:hover {
+            background-color: #777;
+        }
+
+        /* Profile icon styling */
+        .profile {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .profile img {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+
+        /* Content styling */
+        .container {
+            padding: 20px;
+        }
+
+        /* Dropdown menu styling */
+        .dropdown {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown a:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar with hamburger, search, and profile -->
+    <!-- Navbar with hamburger, search, and profile -->
+    <div class="navbar">
+        <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+        
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+            <button>Search</button>
+        </div>
+
+        <div class="profile" onclick="goTo('profile-page')">
+            <img src="https://via.placeholder.com/40" alt="Profile">
+        </div>
+    </div>
+
+    <!-- Dropdown menu -->
+    <div class="dropdown" id="dropdownMenu">
+        <a href="#" onclick="goTo('faqs.html')">FAQs</a>
+        <a href="#" onclick="goTo('suggestions.html')">Suggestion</a>
+        <a href="#" onclick="goTo('contact.html')">Contact</a>
+        <a href="#" onclick="goTo('upload-post.html')">Upload a Post</a>
+    </div>
+
+    <!-- Content section -->
+    <section id="home-page">
+        <div class="container">
+            <h1>Welcome, User!</h1>
+            
+        </div>
+    </section>
+
+    <script>
+        function toggleMenu() {
+            const dropdown = document.getElementById("dropdownMenu");
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+        }
+
+        function goTo(page) {
+            // Here you can implement the logic to navigate to the specified page
+            console.log("Navigating to:", page);
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.hamburger')) {
+                const dropdown = document.getElementById("dropdownMenu");
+                if (dropdown.style.display === "block") {
+                    dropdown.style.display = "none";
+                }
+ }
+        }
+    </script>
+
+</body>
+</html>
